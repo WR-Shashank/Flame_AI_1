@@ -1,0 +1,302 @@
+/* Design tokens
+   Stage backdrop is a dark charcoal-blue, not pure black - this is a video
+   stage, not a generic "dark mode" app. Accent color is NOT a single brand
+   hue: each participant's color IS the accent, since the whole point of the
+   page is telling cursors apart. The only fixed accent is the small live
+   status dot, which is a functional state signal, not decoration. */
+:root {
+  --stage-bg: #12151d;
+  --dock-bg: #1a1e29;
+  --panel-border: #2a2f3d;
+  --text-primary: #f2f3f6;
+  --text-muted: #8b93a7;
+  --live-green: #34d399;
+  --warn-amber: #f5a524;
+  --danger-red: #f56565;
+  --radius-panel: 14px;
+  --radius-pill: 999px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family:
+    "Inter",
+    -apple-system,
+    "Segoe UI",
+    system-ui,
+    sans-serif;
+  background: var(--stage-bg);
+  color: var(--text-primary);
+}
+
+/* ---------- Join screen ---------- */
+
+.join-screen {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.join-card {
+  width: 100%;
+  max-width: 380px;
+  background: var(--dock-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-panel);
+  padding: 32px;
+}
+
+.join-eyebrow {
+  margin: 0 0 6px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.join-card h1 {
+  margin: 0 0 10px;
+  font-size: 26px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.join-copy {
+  margin: 0 0 24px;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.field {
+  display: block;
+  margin-bottom: 16px;
+}
+
+.field span {
+  display: block;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.field input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--panel-border);
+  background: #10131a;
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.field input:focus-visible {
+  outline: 2px solid var(--live-green);
+  outline-offset: 1px;
+}
+
+.primary-button {
+  width: 100%;
+  padding: 11px 16px;
+  border-radius: 8px;
+  border: none;
+  background: var(--live-green);
+  color: #063b2c;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+.primary-button:hover {
+  filter: brightness(1.05);
+}
+
+.primary-button:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+.join-hint {
+  margin: 16px 0 0;
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* ---------- Main stage ---------- */
+
+.app-shell {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.stage-wrap {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  background:
+    radial-gradient(
+      circle at 20% 15%,
+      rgba(255, 255, 255, 0.04),
+      transparent 40%
+    ),
+    var(--stage-bg);
+}
+
+.stage {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: crosshair;
+}
+
+.dock {
+  background: var(--dock-bg);
+  border-top: 1px solid var(--panel-border);
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.dock-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.room-info {
+  min-width: 0;
+}
+
+.status-pill {
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.status-open {
+  color: var(--live-green);
+}
+.status-connecting,
+.status-reconnecting {
+  color: var(--warn-amber);
+}
+.status-closed {
+  color: var(--danger-red);
+}
+
+.room-id {
+  font-size: 13px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.ping {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.presence {
+  flex: 1;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.presence-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px 4px 8px;
+  border-radius: var(--radius-pill);
+  border: 1px solid;
+  font-size: 12px;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.presence-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.reactions {
+  gap: 8px;
+}
+
+.emoji-button {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid var(--panel-border);
+  background: #10131a;
+  font-size: 17px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.emoji-button-active {
+  border-color: var(--live-green);
+  background: rgba(52, 211, 153, 0.12);
+}
+
+.emoji-button:focus-visible {
+  outline: 2px solid var(--live-green);
+  outline-offset: 1px;
+}
+
+.leave-button {
+  margin-left: 4px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--panel-border);
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.leave-button:hover {
+  color: var(--danger-red);
+  border-color: var(--danger-red);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
+
+.lag-sim {
+  gap: 8px;
+}
+
+.lag-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.lag-sim input[type="range"] {
+  width: 110px;
+  accent-color: var(--warn-amber);
+}
